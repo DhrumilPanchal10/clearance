@@ -1,0 +1,7 @@
+{
+  "content": "{\"tool\": \"search_logs\", \"args\": {\"account_id\": \"live-test-001\", \"tenant_id\": \"tenant-demo\", \"text\": \"INV-2024-0042\"}}",
+  "input_tokens": 417,
+  "output_tokens": 51,
+  "cost_usd": 0.00018075,
+  "latency_ms": 549.0679579961579
+}

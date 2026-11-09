@@ -1,0 +1,7 @@
+{
+  "content": "{\"done\": true, \"findings\": [\n  {\"source_id\": \"live-test-001\", \"source_type\": \"ticket\", \"key\": \"issue_reported\", \"value\": \"User claims duplicate charge for invoice INV-2024-0042\"},\n  {\"source_id\": \"system_tools\", \"source_type\": \"infrastructure\", \"key\": \"status\", \"value\": \"All investigation tools returned configuration errors, preventing verification of billing records.\"}\n]}",
+  "input_tokens": 531,
+  "output_tokens": 109,
+  "cost_usd": 0.00029625,
+  "latency_ms": 851.7848330084234
+}

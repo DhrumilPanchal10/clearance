@@ -1,0 +1,7 @@
+{
+  "content": "{\n  \"verdict\": \"pass\",\n  \"issues\": [],\n  \"revised_draft\": \"\"\n}",
+  "input_tokens": 437,
+  "output_tokens": 27,
+  "cost_usd": 0.00014975,
+  "latency_ms": 1425.5085840122774
+}

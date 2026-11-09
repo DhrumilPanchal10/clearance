@@ -1,0 +1,7 @@
+{
+  "content": "{\"tool\": \"search_issues\", \"args\": {\"q\": \"INV-2024-0042\"}}",
+  "input_tokens": 486,
+  "output_tokens": 27,
+  "cost_usd": 0.000162,
+  "latency_ms": 928.7961249938235
+}

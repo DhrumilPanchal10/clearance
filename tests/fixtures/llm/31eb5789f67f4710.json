@@ -1,0 +1,7 @@
+{
+  "content": "{\"tool\": \"get_account\", \"args\": {\"account_id\": \"live-test-001\", \"tenant_id\": \"tenant-demo\"}}",
+  "input_tokens": 364,
+  "output_tokens": 35,
+  "cost_usd": 0.0001435,
+  "latency_ms": 640.8846249978524
+}

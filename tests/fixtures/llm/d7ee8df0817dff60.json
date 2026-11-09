@@ -1,0 +1,7 @@
+{
+  "content": "{\n  \"draft\": \"I am very sorry for the frustration caused by the duplicate charge on your account [live-test-001]. I understand you are requesting a refund of $49.99 for invoice #INV-2024-0042 [live-test-001]. Unfortunately, I am currently experiencing technical difficulties with our billing verification tools [system_tools], which prevents me from confirming this transaction immediately. I have escalated this request to our billing specialists to investigate the duplicate charge and process your refund as quickly as possible.\",\n  \"evidence_ids\": [\n    \"live-test-001\",\n    \"system_tools\"\n  ]\n}",
+  "input_tokens": 368,
+  "output_tokens": 149,
+  "cost_usd": 0.0003155,
+  "latency_ms": 1146.0916659852955
+}

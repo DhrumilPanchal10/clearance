@@ -1,0 +1,7 @@
+{
+  "content": "{\"tool\": \"get_invoices\", \"args\": {\"account_id\": \"live-test-001\", \"tenant_id\": \"tenant-demo\"}}",
+  "input_tokens": 309,
+  "output_tokens": 36,
+  "cost_usd": 0.00013125,
+  "latency_ms": 41540.49408400897
+}

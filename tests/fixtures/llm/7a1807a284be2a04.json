@@ -1,0 +1,7 @@
+{
+  "content": "Hello, how are you today?",
+  "input_tokens": 9,
+  "output_tokens": 7,
+  "cost_usd": 1.2750000000000002e-05,
+  "latency_ms": 18008.0681249965
+}

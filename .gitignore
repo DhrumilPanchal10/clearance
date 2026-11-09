@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Env / secrets
+.env
+.env.local
+
+# Data (synthetic FHIR + raw policies are generated/downloaded, not committed)
+data/synthea/*
+!data/synthea/.gitkeep
+data/policies/raw/*
+!data/policies/raw/.gitkeep
+
+# Node / Next.js
+apps/web/node_modules/
+apps/web/.next/
+apps/web/out/
+
+# OS
+.DS_Store
