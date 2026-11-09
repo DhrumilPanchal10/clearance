@@ -67,4 +67,6 @@ dev = [
     "ruff>=0.7",
     "mypy>=1.11",
     "fakeredis>=2.40.0",
+    "aiosqlite>=0.20",
+    "greenlet>=3.0",
 ]

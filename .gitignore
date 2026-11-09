@@ -12,6 +12,7 @@ __pycache__/
 .env.local
 
 # Data (synthetic FHIR + raw policies are generated/downloaded, not committed)
+data/*.db
 data/synthea/*
 !data/synthea/.gitkeep
 data/policies/raw/*

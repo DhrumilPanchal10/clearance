@@ -87,7 +87,7 @@ clearance/
 
 ## Phase 1 — Data
 
-- [ ] **T1.1 Synthetic patients** · Claude Code · default — download Synthea sample FHIR R4 bundles (or generate a small population once); `fhir/loader.py` loads Patient, Condition, Observation, Procedure, MedicationRequest, DiagnosticReport, DocumentReference into `fhir_resources(id, type, patient_id, clinic_id, effective_at, resource jsonb)`.
+- [x] **T1.1 Synthetic patients** · Claude Code · default — download Synthea sample FHIR R4 bundles (or generate a small population once); `fhir/loader.py` loads Patient, Condition, Observation, Procedure, MedicationRequest, DiagnosticReport, DocumentReference into `fhir_resources(id, type, patient_id, clinic_id, effective_at, resource jsonb)`.
   - Done when: ≥200 patients loaded across 2 clinics; test fetches a patient's conditions.
 - [ ] **T1.2 Real coverage policies** · you + Claude Code — pick 6 procedures (e.g. lumbar spine MRI, knee MRI, sleep study, CT abdomen, outpatient PT extension, a specialty drug). Download public Medicare coverage determinations and 2 commercial insurers' public medical policies for them into `data/policies/raw/` with source URL and effective date. `policies/ingest.py` parses into `policies(payer, procedure, version, effective_from, effective_to, text, source_url)`.
 - [ ] **T1.3 Criteria checklists** · Claude Code · strong — `policies/checklist.py` decomposes each policy version into `Criterion(id, text, kind: rule|judgment, rule_spec?)`; you review and correct every checklist by hand (they become ground truth).
