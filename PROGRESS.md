@@ -7,3 +7,4 @@ One line per completed task: `Tx.y — summary (commit)`.
 - T0.3 — config.py, docker-compose (pgvector + Redis), .env.example, GitHub CI with OFFLINE=1.
 - T0.5 — Copied agentcore spine from resolute; retargeted refs to `clearance`; 119 tests pass OFFLINE=1, ruff + mypy --strict clean.
 - T1.1 — db.py/models.py (portable JSON/JSONB), fhir/loader.py (Synthea bundle → fhir_resources, clinic split, idempotent upsert), get_conditions; loaded 300 patients across 2 clinics (76k resources); 6 loader tests on in-memory SQLite.
+- T1.4 — policies/rules.py: typed RuleSpec union (age, diagnosis, prior_procedure, conservative_therapy) + deterministic evaluator with FHIR evidence refs; build_facts bridge; 14 unit tests (one+ per rule type). (Note: evaluated before T1.2/T1.3 since it's pure-Python and offline-testable; T1.3 will emit these specs.)

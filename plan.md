@@ -91,7 +91,7 @@ clearance/
   - Done when: ≥200 patients loaded across 2 clinics; test fetches a patient's conditions.
 - [ ] **T1.2 Real coverage policies** · you + Claude Code — pick 6 procedures (e.g. lumbar spine MRI, knee MRI, sleep study, CT abdomen, outpatient PT extension, a specialty drug). Download public Medicare coverage determinations and 2 commercial insurers' public medical policies for them into `data/policies/raw/` with source URL and effective date. `policies/ingest.py` parses into `policies(payer, procedure, version, effective_from, effective_to, text, source_url)`.
 - [ ] **T1.3 Criteria checklists** · Claude Code · strong — `policies/checklist.py` decomposes each policy version into `Criterion(id, text, kind: rule|judgment, rule_spec?)`; you review and correct every checklist by hand (they become ground truth).
-- [ ] **T1.4 Rules engine** · Claude Code · small — `policies/rules.py` evaluates `rule` criteria in Python (age, diagnosis code sets, prior imaging within N months, conservative therapy duration from Procedure/MedicationRequest dates).
+- [x] **T1.4 Rules engine** · Claude Code · small — `policies/rules.py` evaluates `rule` criteria in Python (age, diagnosis code sets, prior imaging within N months, conservative therapy duration from Procedure/MedicationRequest dates).
   - Done when: unit tests per rule type.
 
 ## Phase 2 — Retrieval
