@@ -26,7 +26,7 @@ export function NewCaseButton() {
     try {
       const rec = await api.createCase(session, form);
       setOpen(false);
-      router.push(`/cases/${rec.case_id}`);
+      router.push(`/case?id=${rec.case_id}`);
     } catch (e) {
       setErr(e instanceof Error ? e.message : "Could not create case");
     } finally {

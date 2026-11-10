@@ -13,6 +13,11 @@ worker restarts, payer outages, and appeals via a Temporal workflow.
 > make demo-api     # backend on :8080, seeds ~7 live sample cases
 > make web          # the UI on :3000  →  switch roles, approve a case
 > ```
+>
+> **Or deploy the UI to GitHub Pages** (no backend at all): push to `main` and
+> enable Pages → GitHub Actions. The static build swaps the FastAPI backend for a
+> faithful in-browser engine, so the whole product is clickable at
+> `https://<user>.github.io/<repo>/`. See [`apps/web/README.md`](apps/web/README.md).
 
 ---
 

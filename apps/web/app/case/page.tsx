@@ -1,7 +1,8 @@
 "use client";
 
-import { use } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
   CircleDollarSign,
@@ -24,22 +25,29 @@ import { CriteriaTable } from "@/components/CriteriaTable";
 import { LetterPreview } from "@/components/LetterPreview";
 import { CaseActions } from "@/components/CaseActions";
 
-export default function CasePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
-  const { data, error, live, refetch } = useCase(id);
+export default function CasePage() {
+  return (
+    <Suspense fallback={<Spinner label="Loading case…" />}>
+      <CaseView />
+    </Suspense>
+  );
+}
 
-  if (error) {
+function CaseView() {
+  const id = useSearchParams().get("id") ?? "";
+  const { data, error, refetch } = useCase(id);
+
+  if (!id || error) {
     return (
       <div>
         <BackLink />
-        <EmptyState title="Case unavailable" body={error} />
+        <EmptyState title="Case unavailable" body={error ?? "No case selected."} />
       </div>
     );
   }
   if (!data) return <Spinner label="Loading case…" />;
 
-  // Prefer the server timeline; fall back to the live SSE buffer.
-  const timeline = data.timeline?.length ? data.timeline : live;
+  const timeline = data.timeline ?? [];
   const metCount = data.decisions.filter((d) => d.status === "met").length;
 
   return (

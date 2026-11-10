@@ -42,8 +42,24 @@ production, set `CLERK_SECRET_KEY` on the API and the same JWT claims
 
 ```bash
 npm install
-npm run build      # typechecked production build
+npm run build          # standalone build (talks to the FastAPI backend)
+npm run build:static   # static export for GitHub Pages (in-browser engine)
 ```
 
 Configure `API_BASE_URL` (default `http://localhost:8080`) in `.env.local` to
 point at a different backend; `/api/*` is proxied there by `next.config.mjs`.
+
+## GitHub Pages (no backend)
+
+GitHub Pages serves static files only, so the static build swaps the FastAPI
+backend for an **in-browser engine** (`lib/mockEngine.ts`) — a faithful port of
+`clearance.api.demo` that loads the real checklists and drives cases through the
+same state machine entirely client-side. The whole product is clickable with no
+server.
+
+- Push to `main`; the `.github/workflows/pages.yml` workflow builds the static
+  export and deploys it. In the repo, enable **Settings → Pages → Source: GitHub
+  Actions** once.
+- It auto-detects the project base path (`/<repo>`), so links and assets resolve
+  under `https://<user>.github.io/<repo>/`.
+- Toggle manually with `NEXT_PUBLIC_STATIC=1` and `NEXT_PUBLIC_BASE_PATH=/<repo>`.

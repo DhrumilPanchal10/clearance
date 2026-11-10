@@ -1,8 +1,11 @@
 "use client";
 
 import type { CaseDetail, CaseSummary, PlaybookNote, Role } from "./types";
+import { engine } from "./mockEngine";
 
-const BASE = "/api";
+const BASE = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/api`;
+// On GitHub Pages (static export) there is no backend — run the in-browser engine.
+const STATIC = process.env.NEXT_PUBLIC_STATIC === "1";
 
 export interface Session {
   role: Role;
@@ -31,13 +34,14 @@ export function saveSession(s: Session): void {
   }
 }
 
+export class ApiError extends Error {
+  constructor(public status: number, message: string) {
+    super(message);
+  }
+}
+
 function headers(s: Session): HeadersInit {
-  return {
-    "Content-Type": "application/json",
-    "X-Role": s.role,
-    "X-Tenant": s.tenant,
-    "X-User": s.user,
-  };
+  return { "Content-Type": "application/json", "X-Role": s.role, "X-Tenant": s.tenant, "X-User": s.user };
 }
 
 async function req<T>(path: string, s: Session, init?: RequestInit): Promise<T> {
@@ -58,35 +62,77 @@ async function req<T>(path: string, s: Session, init?: RequestInit): Promise<T> 
   return res.json() as Promise<T>;
 }
 
-export class ApiError extends Error {
-  constructor(public status: number, message: string) {
-    super(message);
+function newId(): string {
+  try {
+    return `case-${crypto.randomUUID().replace(/-/g, "").slice(0, 12)}`;
+  } catch {
+    return `case-${Math.random().toString(36).slice(2, 14)}`;
   }
+}
+
+// --- in-browser (static) implementation ------------------------------------ //
+
+function mockList(s: Session, q: Record<string, string>): { cases: CaseSummary[]; count: number } {
+  let rows = engine().list(s.tenant, s.role === "admin");
+  if (q.stage) rows = rows.filter((r) => r.stage === q.stage);
+  if (q.needs_manager != null) rows = rows.filter((r) => String(r.needs_manager) === q.needs_manager);
+  if (q.mine_role === "manager") rows = rows.filter((r) => r.needs_manager);
+  if (q.mine_role === "clinician") rows = rows.filter((r) => r.stage === "awaiting_clinician");
+  return { cases: rows, count: rows.length };
+}
+
+function scoped(rec: CaseDetail | null, s: Session): CaseDetail {
+  if (!rec || (s.role !== "admin" && rec.tenant_id !== s.tenant)) {
+    throw new ApiError(404, "case not found");
+  }
+  return rec;
 }
 
 export const api = {
   listCases: (s: Session, q: Record<string, string> = {}) => {
+    if (STATIC) return Promise.resolve(mockList(s, q));
     const qs = new URLSearchParams(q).toString();
     return req<{ cases: CaseSummary[]; count: number }>(`/cases${qs ? `?${qs}` : ""}`, s);
   },
-  getCase: (s: Session, id: string) => req<CaseDetail>(`/cases/${id}`, s),
-  createCase: (
-    s: Session,
-    body: { patient_id: string; payer: string; procedure: string; as_of: string }
-  ) => req<CaseDetail>(`/cases`, s, { method: "POST", body: JSON.stringify(body) }),
-  decide: (s: Session, id: string, decision: "approve" | "reject", note = "") =>
-    req<{ ok: boolean }>(`/cases/${id}/decision`, s, {
-      method: "POST",
-      body: JSON.stringify({ decision, note }),
-    }),
-  answerClinician: (s: Session, id: string, answers: Record<string, string>) =>
-    req<{ ok: boolean }>(`/cases/${id}/clinician`, s, {
-      method: "POST",
-      body: JSON.stringify({ answers }),
-    }),
-  playbook: (s: Session) => req<{ notes: PlaybookNote[] }>(`/playbook`, s),
+  getCase: (s: Session, id: string) => {
+    if (STATIC) return Promise.resolve(scoped(engine().get(id), s));
+    return req<CaseDetail>(`/cases/${id}`, s);
+  },
+  createCase: (s: Session, body: { patient_id: string; payer: string; procedure: string; as_of: string }) => {
+    if (STATIC) {
+      return engine().createCase({ case_id: newId(), tenant_id: s.tenant, ...body });
+    }
+    return req<CaseDetail>(`/cases`, s, { method: "POST", body: JSON.stringify(body) });
+  },
+  decide: (s: Session, id: string, decision: "approve" | "reject", note = "") => {
+    if (STATIC) {
+      engine().decide(id, decision, s.role);
+      return Promise.resolve({ ok: true });
+    }
+    return req<{ ok: boolean }>(`/cases/${id}/decision`, s, { method: "POST", body: JSON.stringify({ decision, note }) });
+  },
+  answerClinician: (s: Session, id: string, answers: Record<string, string>) => {
+    if (STATIC) {
+      engine().answerClinician(id, answers);
+      return Promise.resolve({ ok: true });
+    }
+    return req<{ ok: boolean }>(`/cases/${id}/clinician`, s, { method: "POST", body: JSON.stringify({ answers }) });
+  },
+  playbook: (s: Session) => {
+    if (STATIC) return Promise.resolve({ notes: engine().playbook() });
+    return req<{ notes: PlaybookNote[] }>(`/playbook`, s);
+  },
 };
 
-export function eventsUrl(id: string): string {
-  return `${BASE}/cases/${id}/events`;
+/** Subscribe to a case's live updates (SSE in prod; engine events when static). */
+export function subscribeCase(id: string, onChange: () => void): () => void {
+  if (STATIC) return engine().subscribeCase(id, onChange);
+  const es = new EventSource(`${BASE}/cases/${id}/events`);
+  const handler = () => onChange();
+  for (const name of ["stage", "decision", "human", "payer", "error"]) {
+    es.addEventListener(name, handler as EventListener);
+  }
+  es.addEventListener("end", () => es.close());
+  es.onerror = () => es.close();
+  return () => es.close();
 }

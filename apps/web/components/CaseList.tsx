@@ -21,7 +21,7 @@ export function CaseList({ cases }: { cases: CaseSummary[] }) {
         {cases.map((c) => (
           <li key={c.case_id}>
             <Link
-              href={`/cases/${c.case_id}`}
+              href={`/case?id=${c.case_id}`}
               className="grid md:grid-cols-[1.4fr_1fr_1fr_0.9fr_0.7fr_auto] gap-x-4 gap-y-2 px-5 py-4 items-center hover:bg-bg transition-colors group"
             >
               <div className="min-w-0">
