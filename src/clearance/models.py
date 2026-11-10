@@ -6,10 +6,10 @@ our own read API — we do not run a FHIR server.
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any
 
-from sqlalchemy import JSON, DateTime, String
+from sqlalchemy import JSON, Date, DateTime, Integer, String, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -36,3 +36,23 @@ class FhirResource(Base):
     clinic_id: Mapped[str] = mapped_column(String, index=True)
     effective_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     resource: Mapped[dict[str, Any]] = mapped_column(JsonDoc)
+
+
+class Policy(Base):
+    """A versioned coverage policy for one (payer, procedure).
+
+    ``effective_to`` is None for the currently-in-force version. The row stores
+    the full policy text; criteria checklists (T1.3) are derived separately.
+    """
+
+    __tablename__ = "policies"
+    __table_args__ = (UniqueConstraint("payer", "procedure", "version", name="uq_policy_version"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    payer: Mapped[str] = mapped_column(String, index=True)
+    procedure: Mapped[str] = mapped_column(String, index=True)
+    version: Mapped[str] = mapped_column(String)
+    effective_from: Mapped[date] = mapped_column(Date, index=True)
+    effective_to: Mapped[date | None] = mapped_column(Date, nullable=True)
+    text: Mapped[str] = mapped_column(Text)
+    source_url: Mapped[str] = mapped_column(String)
