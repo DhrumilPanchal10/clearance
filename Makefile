@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: help install up temporal worker payer api demo-api web test lint eval-smoke eval-full demo
+.PHONY: help install up temporal stack worker payer api demo-api web test lint eval-smoke eval-full demo
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
@@ -12,6 +12,9 @@ up: ## Start Postgres (pgvector) + Redis
 
 temporal: ## Start Temporal dev server (requires Temporal CLI)
 	temporal server start-dev
+
+stack: ## Full stack in Docker (Postgres+Redis+Temporal+api/worker/payer/web)
+	docker compose -f docker-compose.full.yml up --build
 
 worker: ## Run the Temporal worker
 	uv run python -m clearance.workflows.worker

@@ -1,0 +1,18 @@
+# Next.js frontend — standalone production build.
+FROM node:22-slim AS build
+WORKDIR /app
+COPY apps/web/package.json apps/web/package-lock.json ./
+RUN npm ci
+COPY apps/web/ ./
+RUN npm run build
+
+FROM node:22-slim AS run
+WORKDIR /app
+ENV NODE_ENV=production
+# Next.js standalone output keeps the runtime image small.
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
+COPY --from=build /app/public ./public
+EXPOSE 3000
+ENV PORT=3000 API_BASE_URL=http://api:8080
+CMD ["node", "server.js"]

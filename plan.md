@@ -161,8 +161,8 @@ clearance/
 
 ## Phase 11 — Deploy and polish
 
-- [ ] **T11.1 Containers + deploy** · Claude Code · small — Dockerfiles (api, worker, payer); deploy free tiers; Temporal: keep dev server for demos or a single small VM; Terraform for AWS kept honest (apply only via free credits/LocalStack).
-- [ ] **T11.2 README, diagrams, demo** · you — Appendix C.
+- [x] **T11.1 Containers + deploy** · Claude Code · small — Dockerfiles (api, worker, payer); deploy free tiers; Temporal: keep dev server for demos or a single small VM; Terraform for AWS kept honest (apply only via free credits/LocalStack).
+- [x] **T11.2 README, diagrams, demo** · you — Appendix C.
 
 ---
 
