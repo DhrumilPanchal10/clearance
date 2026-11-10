@@ -1,0 +1,19 @@
+case_id: lumbar_spine_mri-009
+payer: medicare
+procedure: lumbar_spine_mri
+as_of: '2020-12-01'
+birth_date: '1965-06-01'
+conditions: []
+procedures:
+- id: ct-0009
+  codes:
+  - '97110'
+  date: '2020-10-20'
+medications: []
+hidden_facts: {}
+expected_labels:
+  medicare:lumbar_spine_mri:L34220:c1: met
+  medicare:lumbar_spine_mri:L34220:c2: met
+expected_end_state: approved
+tags:
+- clean_approve

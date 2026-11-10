@@ -147,11 +147,11 @@ clearance/
 
 ## Phase 9 — Evaluation
 
-- [ ] **T9.1 Case suite** · Claude Code · default + you — `evals/cases/*.yaml`: patient id, order, payer, hidden facts for clinician, expected end state, expected per-criterion labels. Start 50 (1 payer × 3 procedures), grow to 200.
-- [ ] **T9.2 Baseline + runner** · Claude Code — single-agent baseline with the same tools; runner executes workflows in a test Temporal environment with the simulated clinician (`clinician_sim.py`, answers only from hidden facts) and payer service; pass^1 and pass^k (k=3 default on free tier).
-- [ ] **T9.3 Accuracy + citation judge** · Claude Code · small — criteria accuracy; citation precision judge calibrated on 50 hand-checked letters (`docs/results/judge_calibration.md`); unsupported-claim rate.
-- [ ] **T9.4 Fault injection** · Claude Code — kill workers, mid-case deploy (patched), payer 500/429/outage, duplicate and out-of-order webhooks; assert exactly-once submission and correct end states over 120 injected faults.
-- [ ] **T9.5 Report + CI gate** · Claude Code · small — `docs/results/summary.md` vs baseline; CI runs 30-case offline subset with thresholds.
+- [x] **T9.1 Case suite** · Claude Code · default + you — `evals/cases/*.yaml`: patient id, order, payer, hidden facts for clinician, expected end state, expected per-criterion labels. Start 50 (1 payer × 3 procedures), grow to 200.
+- [x] **T9.2 Baseline + runner** · Claude Code — single-agent baseline with the same tools; runner executes workflows in a test Temporal environment with the simulated clinician (`clinician_sim.py`, answers only from hidden facts) and payer service; pass^1 and pass^k (k=3 default on free tier).
+- [x] **T9.3 Accuracy + citation judge** · Claude Code · small — criteria accuracy; citation precision judge calibrated on 50 hand-checked letters (`docs/results/judge_calibration.md`); unsupported-claim rate.
+- [x] **T9.4 Fault injection** · Claude Code — kill workers, mid-case deploy (patched), payer 500/429/outage, duplicate and out-of-order webhooks; assert exactly-once submission and correct end states over 120 injected faults.
+- [x] **T9.5 Report + CI gate** · Claude Code · small — `docs/results/summary.md` vs baseline; CI runs 30-case offline subset with thresholds.
 
 ## Phase 10 — Cost and performance
 

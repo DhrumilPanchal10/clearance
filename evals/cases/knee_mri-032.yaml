@@ -1,0 +1,18 @@
+case_id: knee_mri-032
+payer: medicare
+procedure: knee_mri
+as_of: '2020-12-01'
+birth_date: '1965-06-01'
+conditions: []
+procedures: []
+medications: []
+hidden_facts: {}
+expected_labels:
+  medicare:knee_mri:NCD-220.2:c1: not_met
+  medicare:knee_mri:NCD-220.2:c2: met
+  medicare:knee_mri:NCD-220.2:c3: met
+  medicare:knee_mri:NCD-220.2:c4: not_met
+  medicare:knee_mri:NCD-220.2:c5: met
+expected_end_state: not_met
+tags:
+- double_fail

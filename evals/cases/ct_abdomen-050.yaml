@@ -1,0 +1,20 @@
+case_id: ct_abdomen-050
+payer: medicare
+procedure: ct_abdomen
+as_of: '2020-12-01'
+birth_date: '1965-06-01'
+conditions:
+- id: cond-0050
+  codes:
+  - R10.0
+  date: '2020-09-02'
+procedures: []
+medications: []
+hidden_facts: {}
+expected_labels:
+  medicare:ct_abdomen:L34415:c1: met
+  medicare:ct_abdomen:L34415:c2: met
+  medicare:ct_abdomen:L34415:c3: met
+expected_end_state: approved
+tags:
+- clean_approve
