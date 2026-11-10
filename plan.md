@@ -110,8 +110,8 @@ clearance/
 - [x] **T4.1 Base** · Claude Code · strong — FastMCP wrapper: JWT verify, clinic scoping, RBAC per tool, audit event, span, timeout, circuit breaker, `risk` label.
 - [x] **T4.2 fhir_read** · Claude Code · small — `get_patient_summary`, `query_resources(type, since, codes)`, `search_notes(query)`; minimum-necessary fields only.
 - [x] **T4.3 policy_search** · Claude Code · small — `get_policy(payer, procedure, as_of)`, `search_policy(query, payer, procedure, as_of)`.
-- [ ] **T4.4 payer** · Claude Code · default — `submit_prior_auth(packet, approval_token)` (write, idempotency key = hash(case_id, attempt)), `get_status(id)`.
-- [ ] **T4.5 documents** · Claude Code · small — render letter of medical necessity / appeal to PDF from structured draft.
+- [x] **T4.4 payer** · Claude Code · default — `submit_prior_auth(packet, approval_token)` (write, idempotency key = hash(case_id, attempt)), `get_status(id)`.
+- [x] **T4.5 documents** · Claude Code · small — render letter of medical necessity / appeal to PDF from structured draft.
 
 ## Phase 5 — Agents (LangGraph sub-graphs)
 
