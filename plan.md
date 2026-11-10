@@ -127,9 +127,9 @@ clearance/
 
 ## Phase 6 — Durable workflow (Temporal)
 
-- [ ] **T6.1 Activities** · Claude Code · default — wrap each sub-graph and each MCP write as an activity with timeouts and retry policies (LLM: 3 attempts, backoff; payer submit: non-retryable on 4xx, idempotent on retry).
-- [ ] **T6.2 Workflow** · Claude Code · strong — `PriorAuthCase` workflow: stages per §1; signals `clinician_answer`, `coordinator_decision`, `payer_update`; queries `current_state`; reminder timers (e.g. 24h clinician nudge); payer outage → park on timer; Continue-As-New after appeal cycles.
-- [ ] **T6.3 Worker + versioning** · Claude Code · small — worker entrypoint; demonstrate a `workflow.patched()` change with a running case.
+- [x] **T6.1 Activities** · Claude Code · default — wrap each sub-graph and each MCP write as an activity with timeouts and retry policies (LLM: 3 attempts, backoff; payer submit: non-retryable on 4xx, idempotent on retry).
+- [x] **T6.2 Workflow** · Claude Code · strong — `PriorAuthCase` workflow: stages per §1; signals `clinician_answer`, `coordinator_decision`, `payer_update`; queries `current_state`; reminder timers (e.g. 24h clinician nudge); payer outage → park on timer; Continue-As-New after appeal cycles.
+- [x] **T6.3 Worker + versioning** · Claude Code · small — worker entrypoint; demonstrate a `workflow.patched()` change with a running case.
   - Done when: start a case, kill the worker mid-stage, restart, case completes; Temporal UI screenshot saved.
 
 ## Phase 7 — API, HITL, UI
