@@ -4,8 +4,10 @@ import type { CaseDetail, CaseSummary, PlaybookNote, Role } from "./types";
 import { engine } from "./mockEngine";
 
 const BASE = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/api`;
-// On GitHub Pages (static export) there is no backend — run the in-browser engine.
-const STATIC = process.env.NEXT_PUBLIC_STATIC === "1";
+// Run the in-browser engine (no backend) when hosting statically (GitHub Pages)
+// or on a backend-less host like Vercel (NEXT_PUBLIC_USE_ENGINE=1).
+const STATIC =
+  process.env.NEXT_PUBLIC_STATIC === "1" || process.env.NEXT_PUBLIC_USE_ENGINE === "1";
 
 export interface Session {
   role: Role;

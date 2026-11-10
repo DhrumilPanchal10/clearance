@@ -49,6 +49,20 @@ npm run build:static   # static export for GitHub Pages (in-browser engine)
 Configure `API_BASE_URL` (default `http://localhost:8080`) in `.env.local` to
 point at a different backend; `/api/*` is proxied there by `next.config.mjs`.
 
+## Vercel (recommended, no backend)
+
+The cleanest hosted demo. The same in-browser engine runs client-side, so no
+backend is needed. From the repo:
+
+```bash
+npm i -g vercel
+cd apps/web && vercel --prod      # deploys this folder; vercel.json enables the engine
+```
+
+Or import the repo in the Vercel dashboard and set **Root Directory → `apps/web`**.
+`apps/web/vercel.json` already sets the build to engine mode, so it works with no
+extra config. You get a clean `https://<project>.vercel.app` URL.
+
 ## GitHub Pages (no backend)
 
 GitHub Pages serves static files only, so the static build swaps the FastAPI
