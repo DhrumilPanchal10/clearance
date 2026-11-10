@@ -155,9 +155,9 @@ clearance/
 
 ## Phase 10 — Cost and performance
 
-- [ ] **T10.1 Routing** · Claude Code — small model for intake/evidence extraction, strong for criteria judgment and appeals; measure cost per case before/after.
-- [ ] **T10.2 Context compression** · Claude Code · small — evidence cards replace raw notes in prompts; token reduction measured.
-- [ ] **T10.3 Prompt caching** · Claude Code · small — policy text and system prompts as stable prefixes.
+- [x] **T10.1 Routing** · Claude Code — small model for intake/evidence extraction, strong for criteria judgment and appeals; measure cost per case before/after.
+- [x] **T10.2 Context compression** · Claude Code · small — evidence cards replace raw notes in prompts; token reduction measured.
+- [x] **T10.3 Prompt caching** · Claude Code · small — policy text and system prompts as stable prefixes.
 
 ## Phase 11 — Deploy and polish
 
