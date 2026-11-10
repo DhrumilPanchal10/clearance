@@ -49,6 +49,12 @@ target-version = "py312"
 select = ["E", "F", "I", "UP", "B", "SIM"]
 ignore = ["E501"]
 
+[tool.ruff.lint.per-file-ignores]
+# FastAPI uses `Depends(...)` / `Header(...)` in parameter defaults by design.
+"src/clearance/api/app.py" = ["B008"]
+"src/clearance/api/auth.py" = ["B008"]
+"payer_service/*" = ["B008"]
+
 [tool.mypy]
 python_version = "3.12"
 strict = true

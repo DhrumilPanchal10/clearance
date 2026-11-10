@@ -134,10 +134,10 @@ clearance/
 
 ## Phase 7 — API, HITL, UI
 
-- [ ] **T7.1 API** · Claude Code · default — create case, list cases, case detail, SSE stage events, endpoints that send Temporal signals, payer webhook receiver (dedupe by event id).
-- [ ] **T7.2 HITL policies** · Claude Code · small — approval required for every submission; manager queue for low confidence, high cost, second denial; overrides saved as eval data.
+- [x] **T7.1 API** · Claude Code · default — create case, list cases, case detail, SSE stage events, endpoints that send Temporal signals, payer webhook receiver (dedupe by event id).
+- [x] **T7.2 HITL policies** · Claude Code · small — approval required for every submission; manager queue for low confidence, high cost, second denial; overrides saved as eval data.
 - [ ] **T7.3 Next.js** · Claude Code · default — Clerk auth; role views: coordinator queue, case timeline, evidence-vs-criteria table with FHIR citations, approve/edit/reject; clinician inbox; manager queue.
-- [ ] **T7.4 Episodic memory** · Claude Code · default — on payer outcome signal, write `(payer, procedure, outcome, denial_reason)`; nightly consolidation → per-payer playbook notes, expiring on policy version change; retrieved by supervisor before submission.
+- [x] **T7.4 Episodic memory** · Claude Code · default — on payer outcome signal, write `(payer, procedure, outcome, denial_reason)`; nightly consolidation → per-payer playbook notes, expiring on policy version change; retrieved by supervisor before submission.
 
 ## Phase 8 — Security hardening
 
