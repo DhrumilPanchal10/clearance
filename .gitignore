@@ -25,3 +25,7 @@ apps/web/out/
 
 # OS
 .DS_Store
+
+# Runtime-generated eval/memory data (not source)
+data/overrides/
+data/memory/
