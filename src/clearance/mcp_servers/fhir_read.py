@@ -17,6 +17,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from agentcore.audit import AuditLog
 from clearance.mcp_servers.base import Risk, ToolContext, mcp_tool
 from clearance.models import FhirResource
+from clearance.security.injection import screen_note
 
 # Clinical reads: clinic staff only (auditor reviews the audit log, not PHI).
 _READ_ROLES = frozenset({"coordinator", "clinician", "manager"})
@@ -119,13 +120,18 @@ def build_fhir_read_tools(
         needle = query.lower()
         hits: list[dict[str, Any]] = []
         for r in rows:
-            haystack = _note_text(r.resource).lower()
-            if needle in haystack:
+            text = _note_text(r.resource)
+            if needle in text.lower():
+                # T8.3: note text is untrusted. Screen it; flag injection-suspect
+                # notes so the evidence stage neutralizes them before any prompt.
+                screen = screen_note(text)
                 hits.append(
                     {
                         "id": r.id,
                         "date": _iso(r.effective_at),
                         "type": _codes_of(r.resource, "type"),
+                        "untrusted": not screen.safe,
+                        "screen_findings": screen.findings,
                     }
                 )
         return hits

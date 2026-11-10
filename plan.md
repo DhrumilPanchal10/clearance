@@ -141,9 +141,9 @@ clearance/
 
 ## Phase 8 — Security hardening
 
-- [ ] **T8.1 RLS + RBAC** · Claude Code — clinic RLS on all tables; roles coordinator, clinician, manager, auditor; tests for cross-clinic denial.
-- [ ] **T8.2 PHI redaction** · Claude Code · small — span/log processor masking names, DOB, MRN, addresses; test that traces contain no PHI fields.
-- [ ] **T8.3 Injection in notes** · Claude Code · small — clinical note text treated as untrusted; screening + tests with injected notes.
+- [x] **T8.1 RLS + RBAC** · Claude Code — clinic RLS on all tables; roles coordinator, clinician, manager, auditor; tests for cross-clinic denial.
+- [x] **T8.2 PHI redaction** · Claude Code · small — span/log processor masking names, DOB, MRN, addresses; test that traces contain no PHI fields.
+- [x] **T8.3 Injection in notes** · Claude Code · small — clinical note text treated as untrusted; screening + tests with injected notes.
 
 ## Phase 9 — Evaluation
 

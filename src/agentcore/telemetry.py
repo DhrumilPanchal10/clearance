@@ -68,6 +68,7 @@ def init_telemetry(
 
     resource = Resource.create({SERVICE_NAME: "clearance"})
     provider = TracerProvider(resource=resource)
+    provider.add_span_processor(_phi_processor())  # scrub PHI before any export
 
     if not is_offline() and endpoint:
         try:
@@ -100,9 +101,17 @@ def configure_test_exporter() -> InMemorySpanExporter:
     exporter = InMemorySpanExporter()
     resource = Resource.create({SERVICE_NAME: "clearance-test"})
     provider = TracerProvider(resource=resource)
+    provider.add_span_processor(_phi_processor())  # must run before the exporter
     provider.add_span_processor(SimpleSpanProcessor(exporter))
     _provider = provider
     return exporter
+
+
+def _phi_processor() -> Any:
+    """Lazy import to avoid a hard import cycle at module load."""
+    from clearance.security.phi import PHIRedactingSpanProcessor
+
+    return PHIRedactingSpanProcessor()
 
 
 def _reset_provider() -> None:
