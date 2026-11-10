@@ -1,0 +1,26 @@
+{
+  "_note": "Ground truth for M1. Criteria quoted from CMS LCD L34220 (Lumbar MRI). Rule code sets are provisional starter values to be reconciled with the synthetic (Synthea) coding during eval wiring (Phase 9). Criterion c2 applies only when no red-flag condition (c1) is present; that gating is handled by the criteria-decision node, not inside a single rule_spec.",
+  "payer": "medicare",
+  "procedure": "lumbar_spine_mri",
+  "version": "L34220",
+  "criteria": [
+    {
+      "id": "medicare:lumbar_spine_mri:L34220:c1",
+      "text": "A red-flag condition is present (suspected tumor, infection, herniated disc with nerve compression, or a major neurologic problem), supporting MRI without a prior conservative-therapy trial.",
+      "kind": "judgment",
+      "rule_spec": null,
+      "source_quote": "Lumbar MRI may be indicated for a patient with a 'red-flag' condition, such as a suspected tumor, infection, herniated intervertebral disc with nerve compression, or a major neurological problem."
+    },
+    {
+      "id": "medicare:lumbar_spine_mri:L34220:c2",
+      "text": "If no red-flag condition is present, the patient has completed at least 4 weeks (28 days) of conservative management without adequate response.",
+      "kind": "rule",
+      "rule_spec": {
+        "kind": "conservative_therapy",
+        "codes": ["97110", "97112", "97140", "98940", "98941", "98942", "91251008"],
+        "min_duration_days": 28
+      },
+      "source_quote": "...MRI will be covered only if the patient has not responded to a reasonable trial of conservative management lasting at least four weeks."
+    }
+  ]
+}

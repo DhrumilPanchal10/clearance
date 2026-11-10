@@ -50,7 +50,10 @@ class AgeRule(BaseModel):
 
 class DiagnosisRule(BaseModel):
     kind: Literal["diagnosis"] = "diagnosis"
-    any_of: list[str]  # ICD-10 / SNOMED codes; a match on any means met
+    any_of: list[str]  # ICD-10 / SNOMED codes
+    # False: met when at least one code is present (an indication).
+    # True: met when NONE are present (a contraindication, e.g. "no pregnancy").
+    must_be_absent: bool = False
 
 
 class PriorProcedureRule(BaseModel):
@@ -153,8 +156,14 @@ def _eval_age(rule: AgeRule, facts: PatientFacts) -> RuleResult:
 
 def _eval_diagnosis(rule: DiagnosisRule, facts: PatientFacts) -> RuleResult:
     matches = _any_code_match(facts.conditions, rule.any_of)
+    refs = [m["id"] for m in matches if "id" in m]
+    if rule.must_be_absent:
+        if matches:
+            return RuleResult(
+                "not_met", f"contraindicating diagnosis present ({len(matches)})", refs
+            )
+        return RuleResult("met", "no contraindicating diagnosis")
     if matches:
-        refs = [m["id"] for m in matches if "id" in m]
         return RuleResult("met", f"diagnosis code present ({len(matches)})", refs)
     return RuleResult("not_met", "no matching diagnosis code")
 

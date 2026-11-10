@@ -1,0 +1,47 @@
+{
+  "_note": "Ground truth for M1. Medicare has no knee-specific MRI indications; coverage is governed by NCD 220.2 (Magnetic Resonance Imaging) general conditions, contraindications and non-covered uses. Rule code sets are provisional starter values to reconcile with Synthea coding in Phase 9.",
+  "payer": "medicare",
+  "procedure": "knee_mri",
+  "version": "NCD-220.2",
+  "criteria": [
+    {
+      "id": "medicare:knee_mri:NCD-220.2:c1",
+      "text": "The MRI is reasonable and necessary for the diagnosis or treatment of this patient and performed on an FDA-approved MRI unit.",
+      "kind": "judgment",
+      "rule_spec": null,
+      "source_quote": "...the services must be reasonable and necessary for the diagnosis or treatment of the specific patient involved."
+    },
+    {
+      "id": "medicare:knee_mri:NCD-220.2:c2",
+      "text": "The patient does not have metallic clips on vascular aneurysms (an MRI contraindication).",
+      "kind": "judgment",
+      "rule_spec": null,
+      "source_quote": "MRI is not covered for patients with metallic clips on vascular aneurysms."
+    },
+    {
+      "id": "medicare:knee_mri:NCD-220.2:c3",
+      "text": "The MRI is not being performed during a viable pregnancy.",
+      "kind": "rule",
+      "rule_spec": {
+        "kind": "diagnosis",
+        "any_of": ["Z33.1", "O80", "O09.90", "72892002"],
+        "must_be_absent": true
+      },
+      "source_quote": "MRI during a viable pregnancy. (listed among non-covered uses)"
+    },
+    {
+      "id": "medicare:knee_mri:NCD-220.2:c4",
+      "text": "The study is not solely to image cortical bone or calcifications (a non-covered use).",
+      "kind": "judgment",
+      "rule_spec": null,
+      "source_quote": "CMS has determined that MRI of cortical bone and calcifications... are therefore non-covered."
+    },
+    {
+      "id": "medicare:knee_mri:NCD-220.2:c5",
+      "text": "The patient can tolerate MRI (no uncontrolled claustrophobia and no ferromagnetic life-support/monitoring conflict).",
+      "kind": "judgment",
+      "rule_spec": null,
+      "source_quote": "...a history of claustrophobia unsuitable candidates for MRI procedures... the danger inherent in bringing ferromagnetic materials within range of MRI units..."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "_note": "Ground truth for M1. Criteria from CMS LCD L34415 (CT of the Abdomen and Pelvis). The ~20 covered indications are collapsed into one 'qualifying indication' diagnosis rule (c1); scanner-equipment items (FDA-known model, full market release) are excluded as non-patient criteria. Diagnosis/CPT code sets are provisional starter values to reconcile with Synthea coding in Phase 9. The TAVR 60-day rule (c3) applies only to patients being evaluated for TAVI/TAVR.",
+  "payer": "medicare",
+  "procedure": "ct_abdomen",
+  "version": "L34415",
+  "criteria": [
+    {
+      "id": "medicare:ct_abdomen:L34415:c1",
+      "text": "At least one qualifying indication is present: abdominal or pelvic pain, known/suspected mass or fluid collection, primary or metastatic malignancy, inflammatory process, vascular abnormality, trauma, or lymphadenopathy.",
+      "kind": "rule",
+      "rule_spec": {
+        "kind": "diagnosis",
+        "any_of": ["R10.0", "R10.84", "R10.9", "R19.00", "R22.2", "C78.7", "C79.9", "D49.0", "K35.80", "K37", "K65.9", "I72.3", "R59.0", "S36.90"]
+      },
+      "source_quote": "Covered indications include evaluation of abdominal pain; known or suspected abdominal masses or fluid collections; primary or metastatic malignancies; abdominal inflammatory processes; abnormalities of vascular structures; abdominal trauma; and pelvic cysts/tumors/masses, metastasis, inflammatory processes, vascular abnormalities and lymphadenopathies."
+    },
+    {
+      "id": "medicare:ct_abdomen:L34415:c2",
+      "text": "Alternatively, a judgment-based indication is present: clarifying findings from other imaging or labs, guidance for an interventional procedure, radiation-therapy planning, or a GU disorder not resolvable by exam/ultrasound.",
+      "kind": "judgment",
+      "rule_spec": null,
+      "source_quote": "Covered for the clarification of findings from other imaging studies... guidance for interventional diagnostic or therapeutic procedures... treatment planning for radiation therapy... evaluation of other genitourinary (GU) disorders in which the physician cannot make a diagnosis on physical examination and/or by ultrasound."
+    },
+    {
+      "id": "medicare:ct_abdomen:L34415:c3",
+      "text": "For a patient being evaluated for TAVI/TAVR, no CT of the abdomen/pelvis has been performed within the preceding 60 days.",
+      "kind": "rule",
+      "rule_spec": {
+        "kind": "prior_procedure",
+        "codes": ["74150", "74160", "74170", "74176", "74177", "74178"],
+        "within_months": 2,
+        "must_be_absent": true
+      },
+      "source_quote": "For patients being evaluated for potential transcatheter aortic valve implantation/replacement (TAVI or TAVR) provided that the patient has not undergone a CT of the abdomen within the preceding 60 days."
+    }
+  ]
+}

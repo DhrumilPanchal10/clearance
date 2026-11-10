@@ -81,7 +81,7 @@ clearance/
 - [x] **T0.1 Scaffold** · Claude Code · small — layout above; deps: fastapi, uvicorn, pydantic-settings, temporalio, langgraph, mcp, litellm, psycopg[binary], sqlalchemy, pgvector, redis, opentelemetry-sdk, opentelemetry-exporter-otlp, sentence-transformers, bm25s, fhir.resources, httpx, tenacity, pytest, pytest-asyncio, ruff, mypy. Makefile: `install, up, temporal, worker, payer, api, test, lint, eval-smoke, eval-full, demo`.
 - [x] **T0.2 Agent files** · you — create `AGENTS.md` from Appendix A; `CLAUDE.md` containing the single line `@AGENTS.md`; `.claude/commands/task.md` from Appendix B; empty `PROGRESS.md`.
 - [x] **T0.3 Config, compose, CI** · Claude Code · small — Postgres (pgvector) + Redis only in compose; CI with `OFFLINE=1`.
-- [ ] **T0.4 Discovery + threat model** · you + claude.ai — prior-auth workflow today, roles, pain (minutes per case, denial causes), success metrics; threats: PHI leakage, cross-clinic access, fabricated clinical claims, injected text in clinical notes, duplicate submissions.
+- [x] **T0.4 Discovery + threat model** · you + claude.ai — prior-auth workflow today, roles, pain (minutes per case, denial causes), success metrics; threats: PHI leakage, cross-clinic access, fabricated clinical claims, injected text in clinical notes, duplicate submissions.
 - [x] **T0.5 agentcore** · Claude Code — if you have agentcore from another project, copy `src/agentcore/` and its tests, rename package refs, run tests. Otherwise build: llm.py (LiteLLM, structured outputs, cost), routing.py (fallback, budgets), offline.py, telemetry.py (OTel GenAI attrs), guardrails.py (`@guarded`), audit.py (hash chain), auth.py (Clerk JWT + RBAC), cache.py (scoped keys), memory.py.
   - Done when: agentcore tests pass with OFFLINE=1.
 
@@ -90,7 +90,7 @@ clearance/
 - [x] **T1.1 Synthetic patients** · Claude Code · default — download Synthea sample FHIR R4 bundles (or generate a small population once); `fhir/loader.py` loads Patient, Condition, Observation, Procedure, MedicationRequest, DiagnosticReport, DocumentReference into `fhir_resources(id, type, patient_id, clinic_id, effective_at, resource jsonb)`.
   - Done when: ≥200 patients loaded across 2 clinics; test fetches a patient's conditions.
 - [x] **T1.2 Real coverage policies** · you + Claude Code — pick 6 procedures (e.g. lumbar spine MRI, knee MRI, sleep study, CT abdomen, outpatient PT extension, a specialty drug). Download public Medicare coverage determinations and 2 commercial insurers' public medical policies for them into `data/policies/raw/` with source URL and effective date. `policies/ingest.py` parses into `policies(payer, procedure, version, effective_from, effective_to, text, source_url)`.
-- [ ] **T1.3 Criteria checklists** · Claude Code · strong — `policies/checklist.py` decomposes each policy version into `Criterion(id, text, kind: rule|judgment, rule_spec?)`; you review and correct every checklist by hand (they become ground truth).
+- [x] **T1.3 Criteria checklists** · Claude Code · strong — `policies/checklist.py` decomposes each policy version into `Criterion(id, text, kind: rule|judgment, rule_spec?)`; you review and correct every checklist by hand (they become ground truth).
 - [x] **T1.4 Rules engine** · Claude Code · small — `policies/rules.py` evaluates `rule` criteria in Python (age, diagnosis code sets, prior imaging within N months, conservative therapy duration from Procedure/MedicationRequest dates).
   - Done when: unit tests per rule type.
 

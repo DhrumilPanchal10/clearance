@@ -75,6 +75,20 @@ def test_diagnosis_absent_not_met() -> None:
     assert evaluate(DiagnosisRule(any_of=["M54.5"]), facts).status == "not_met"
 
 
+def test_diagnosis_contraindication_met_when_absent() -> None:
+    # must_be_absent: "no pregnancy" is MET when the code is not present.
+    facts = PatientFacts(as_of=AS_OF, conditions=[_condition("c1", "M54.5")])
+    res = evaluate(DiagnosisRule(any_of=["Z33.1"], must_be_absent=True), facts)
+    assert res.status == "met"
+
+
+def test_diagnosis_contraindication_not_met_when_present() -> None:
+    facts = PatientFacts(as_of=AS_OF, conditions=[_condition("c1", "Z33.1")])
+    res = evaluate(DiagnosisRule(any_of=["Z33.1"], must_be_absent=True), facts)
+    assert res.status == "not_met"
+    assert res.evidence_refs == ["c1"]
+
+
 # --- prior procedure (within window) ---------------------------------------- #
 
 
