@@ -33,7 +33,20 @@ from clearance.config import settings
 # Roles + permission matrix
 # ---------------------------------------------------------------------------
 
-ROLES: frozenset[str] = frozenset({"support_engineer", "lead", "admin", "contractor"})
+ROLES: frozenset[str] = frozenset(
+    {
+        # Generic spine roles (retained from the shared agentcore).
+        "support_engineer",
+        "lead",
+        "admin",
+        "contractor",
+        # Clearance clinic roles (RBAC matrix lives in clearance.mcp_servers.base).
+        "coordinator",
+        "clinician",
+        "manager",
+        "auditor",
+    }
+)
 
 # Maps (resource, action) → minimum set of roles that may perform it.
 # A user whose role is in the set is permitted.
