@@ -26,8 +26,8 @@ test: ## Run the test suite offline
 	OFFLINE=1 uv run pytest -q
 
 lint: ## ruff + mypy --strict
-	uv run ruff check src tests
-	uv run ruff format --check src tests
+	uv run ruff check src tests scripts payer_service
+	uv run ruff format --check src tests scripts payer_service
 	uv run mypy
 
 eval-smoke: ## Run the offline eval subset

@@ -102,8 +102,8 @@ clearance/
 
 ## Phase 3 — Payer service
 
-- [ ] **T3.1 Payer API** · Claude Code · default — separate FastAPI app modelled on FHIR-based prior-auth exchange: `POST /claims/prior-auth` (returns pended/approved/denied/more-info deterministically from hidden case labels), `GET /status/{id}`, webhook callbacks to our API, denial reason codes.
-- [ ] **T3.2 Failure modes** · Claude Code · small — configurable latency, 429 with Retry-After, 500s, outage windows, duplicate webhooks, out-of-order webhooks.
+- [x] **T3.1 Payer API** · Claude Code · default — separate FastAPI app modelled on FHIR-based prior-auth exchange: `POST /claims/prior-auth` (returns pended/approved/denied/more-info deterministically from hidden case labels), `GET /status/{id}`, webhook callbacks to our API, denial reason codes.
+- [x] **T3.2 Failure modes** · Claude Code · small — configurable latency, 429 with Retry-After, 500s, outage windows, duplicate webhooks, out-of-order webhooks.
 
 ## Phase 4 — MCP servers
 
