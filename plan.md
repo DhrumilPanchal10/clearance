@@ -96,9 +96,9 @@ clearance/
 
 ## Phase 2 — Retrieval
 
-- [ ] **T2.1 Policy RAG** · Claude Code · default — chunk by criterion; embed locally (bge-small); hybrid BM25 + pgvector + RRF + cross-encoder rerank; filters payer + procedure + effective date INSIDE the query.
-- [ ] **T2.2 Chart retrieval + evidence cards** · Claude Code · default — `fhir/evidence_cards.py`: per criterion, structured FHIR query by resource type and date window + semantic search over DocumentReference note text; output `EvidenceCard(criterion_id, summary, fhir_refs[])`; cache cards per (patient, encounter, criterion).
-- [ ] **T2.3 Stage traces + retrieval eval** · Claude Code · small — spans per stage; label 60 criterion→evidence pairs; Recall/precision report in `docs/results/retrieval.md`.
+- [x] **T2.1 Policy RAG** · Claude Code · default — chunk by criterion; embed locally (bge-small); hybrid BM25 + pgvector + RRF + cross-encoder rerank; filters payer + procedure + effective date INSIDE the query.
+- [x] **T2.2 Chart retrieval + evidence cards** · Claude Code · default — `fhir/evidence_cards.py`: per criterion, structured FHIR query by resource type and date window + semantic search over DocumentReference note text; output `EvidenceCard(criterion_id, summary, fhir_refs[])`; cache cards per (patient, encounter, criterion).
+- [x] **T2.3 Stage traces + retrieval eval** · Claude Code · small — spans per stage; label 60 criterion→evidence pairs; Recall/precision report in `docs/results/retrieval.md`.
 
 ## Phase 3 — Payer service
 
