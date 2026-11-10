@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 247 248 251;
+  --surface: 255 255 255;
+  --card: 255 255 255;
+  --line: 226 230 237;
+  --ink: 17 24 39;
+  --muted: 100 110 128;
+  --brand: 99 102 241;
+  --brand-soft: 238 240 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: 10 12 20;
+    --surface: 17 20 32;
+    --card: 20 24 38;
+    --line: 36 42 60;
+    --ink: 232 236 245;
+    --muted: 148 158 178;
+    --brand: 129 140 248;
+    --brand-soft: 30 32 60;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: 10 12 20;
+  --surface: 17 20 32;
+  --card: 20 24 38;
+  --line: 36 42 60;
+  --ink: 232 236 245;
+  --muted: 148 158 178;
+  --brand: 129 140 248;
+  --brand-soft: 30 32 60;
+}
+
+* {
+  border-color: rgb(var(--line));
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--ink));
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Thin, unobtrusive scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--line));
+  border-radius: 999px;
+  border: 3px solid rgb(var(--bg));
+}
+
+.card {
+  background-color: rgb(var(--card));
+  border: 1px solid rgb(var(--line));
+  border-radius: 1rem;
+  box-shadow: var(--tw-shadow, 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.1));
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+.gridlines {
+  background-image: radial-gradient(rgb(var(--line) / 0.6) 1px, transparent 1px);
+  background-size: 22px 22px;
+}

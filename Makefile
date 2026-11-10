@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: help install up temporal worker payer api test lint eval-smoke eval-full demo
+.PHONY: help install up temporal worker payer api demo-api web test lint eval-smoke eval-full demo
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
@@ -19,8 +19,14 @@ worker: ## Run the Temporal worker
 payer: ## Run the payer service (separate FastAPI app)
 	uv run uvicorn payer_service.app:app --port 8081 --reload
 
-api: ## Run the Clearance API
+api: ## Run the Clearance API (needs Postgres + payer)
 	uv run uvicorn clearance.api.main:app --port 8080 --reload
+
+demo-api: ## Run the zero-infra demo API (no Postgres/payer/Temporal)
+	OFFLINE=1 uv run uvicorn clearance.api.demo:app --port 8080 --reload
+
+web: ## Run the Next.js frontend (talks to the API on :8080)
+	cd apps/web && npm install && npm run dev
 
 test: ## Run the test suite offline
 	OFFLINE=1 uv run pytest -q
