@@ -34,8 +34,8 @@ class Source:
 SOURCES: tuple[Source, ...] = (
     Source(
         "lumbar_spine_mri",
-        "L37281",
-        "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdId=37281",
+        "L34220",
+        "https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdId=34220",
     ),
     Source(
         "knee_mri",
