@@ -33,3 +33,28 @@ def build_assess_graph(intake: NodeFn, policy: NodeFn, evidence: NodeFn, criteri
     g.add_edge("criteria", END)
 
     return g.compile()
+
+
+def build_draft_graph(submission: NodeFn, verifier: NodeFn) -> Any:
+    """submission -> verifier -> (revise -> submission, bounded) -> END."""
+    g: StateGraph[CaseState] = StateGraph(CaseState)
+    g.add_node("submission", submission)
+    g.add_node("verifier", verifier)
+
+    g.add_edge(START, "submission")
+    g.add_edge("submission", "verifier")
+
+    def route(state: CaseState) -> str:
+        return "submission" if state.get("verdict") == "revise" else END
+
+    g.add_conditional_edges("verifier", route, {"submission": "submission", END: END})
+    return g.compile()
+
+
+def build_appeal_graph(appeals: NodeFn) -> Any:
+    """appeals -> END (maps a denial into a cited appeal draft)."""
+    g: StateGraph[CaseState] = StateGraph(CaseState)
+    g.add_node("appeals", appeals)
+    g.add_edge(START, "appeals")
+    g.add_edge("appeals", END)
+    return g.compile()

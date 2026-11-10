@@ -115,14 +115,14 @@ clearance/
 
 ## Phase 5 — Agents (LangGraph sub-graphs)
 
-- [ ] **T5.1 State + schemas** · Claude Code · strong — case state, `CriterionDecision(criterion_id, status met|not_met|unknown, evidence_refs, confidence, method rule|agent)`, reducers for parallel writes.
-- [ ] **T5.2 Intake** · Claude Code · small — normalize codes, payer, plan; select policy version.
-- [ ] **T5.3 Evidence + Policy agents (parallel)** · Claude Code · default — evidence agent builds cards; policy agent returns checklist for the version.
-- [ ] **T5.4 Criteria decision** · Claude Code · default — rules first (T1.4), agent only for judgment criteria; confidence per criterion.
-- [ ] **T5.5 Submission agent** · Claude Code · default — packet + letter; every clinical sentence carries `[fhir:<id>]` refs.
-- [ ] **T5.6 Verifier** · Claude Code · default — citation gate (refs exist and support the sentence), criteria consistency; `pass|revise|escalate`.
-- [ ] **T5.7 Appeals agent** · Claude Code · default — map denial reason code → missing/misread criteria → evidence → appeal draft.
-- [ ] **T5.8 Supervisor + sub-graphs** · Claude Code · strong — `agents/graphs.py`: `assess_graph` (intake → evidence ∥ policy → criteria), `draft_graph` (submission → verifier → revise ≤2), `appeal_graph`; all nodes `@guarded`.
+- [x] **T5.1 State + schemas** · Claude Code · strong — case state, `CriterionDecision(criterion_id, status met|not_met|unknown, evidence_refs, confidence, method rule|agent)`, reducers for parallel writes.
+- [x] **T5.2 Intake** · Claude Code · small — normalize codes, payer, plan; select policy version.
+- [x] **T5.3 Evidence + Policy agents (parallel)** · Claude Code · default — evidence agent builds cards; policy agent returns checklist for the version.
+- [x] **T5.4 Criteria decision** · Claude Code · default — rules first (T1.4), agent only for judgment criteria; confidence per criterion.
+- [x] **T5.5 Submission agent** · Claude Code · default — packet + letter; every clinical sentence carries `[fhir:<id>]` refs.
+- [x] **T5.6 Verifier** · Claude Code · default — citation gate (refs exist and support the sentence), criteria consistency; `pass|revise|escalate`.
+- [x] **T5.7 Appeals agent** · Claude Code · default — map denial reason code → missing/misread criteria → evidence → appeal draft.
+- [x] **T5.8 Supervisor + sub-graphs** · Claude Code · strong — `agents/graphs.py`: `assess_graph` (intake → evidence ∥ policy → criteria), `draft_graph` (submission → verifier → revise ≤2), `appeal_graph`; all nodes `@guarded`.
   - Done when: offline run of each sub-graph on 3 sample cases.
 
 ## Phase 6 — Durable workflow (Temporal)
