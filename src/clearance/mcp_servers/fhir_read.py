@@ -130,10 +130,32 @@ def build_fhir_read_tools(
                 )
         return hits
 
+    @mcp_tool("get_patient_facts", allowed_roles=_READ_ROLES, risk=Risk.READ, audit_log=audit_log)
+    async def get_patient_facts(ctx: ToolContext, *, patient_id: str) -> dict[str, Any]:
+        """Rule-ready facts for the rules engine: codes + dates only, no PHI."""
+        async with session_factory() as s:
+            rows = await _scoped(s, ctx.clinic_id, patient_id, None)
+        patient = next((r for r in rows if r.type == "Patient"), None)
+
+        def items(rtype: str, *keys: str) -> list[dict[str, Any]]:
+            return [
+                {"id": r.id, "codes": _codes_of(r.resource, *keys), "date": _iso(r.effective_at)}
+                for r in rows
+                if r.type == rtype
+            ]
+
+        return {
+            "birth_date": patient.resource.get("birthDate") if patient else None,
+            "conditions": items("Condition", "code"),
+            "procedures": items("Procedure", "code"),
+            "medications": items("MedicationRequest", "medicationCodeableConcept"),
+        }
+
     return SimpleNamespace(
         get_patient_summary=get_patient_summary,
         query_resources=query_resources,
         search_notes=search_notes,
+        get_patient_facts=get_patient_facts,
     )
 
 
